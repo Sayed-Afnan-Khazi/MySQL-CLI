@@ -1,15 +1,25 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# Environment Variables
+SQLUSERNAME = os.getenv("SQLUSERNAME")
+SQLPASSWORD = os.getenv("SQLPASSWORD")
+DEFAULT_DB = os.getenv("DEFAULT_DB")
+
+
 # Functions
 
-def sql_ImportandConnect(sqlusername="user",sqlpasswd="1234",db="practicalrecord"):
+def sql_ImportandConnect(sqlusername=SQLUSERNAME,sqlpasswd=SQLPASSWORD,db=DEFAULT_DB):
     import mysql.connector as sqltor
     global mycon
     global curobj
     try:
         mycon=sqltor.connect(host="",user=sqlusername,passwd=sqlpasswd,database=db)
         curobj=mycon.cursor()
-        print("*****Connection Successfully Established!*****")
+        print("**********Connection Successfully Established!**********")
     except:
-        print("*****Connection to the SQL Server Failed. Please Contact Authorized Personnel*****")
+        print("**********Connection to the SQL Server Failed. Please Contact Authorized Personnel**********")
 
 def sql_CreateDB(dbname):
     try:
@@ -251,7 +261,7 @@ def sqlmenu():
                         break
                     elif ci==0:
                         try:
-                            sql_ImportandConnect(sqlusername="user",sqlpasswd="1234",db="practicalrecord")
+                            sql_ImportandConnect(sqlusername=SQLUSERNAME,sqlpasswd=SQLPASSWORD,db=DEFAULT_DB)
                             db="practicalrecord"
                             conn=True
                         except:
